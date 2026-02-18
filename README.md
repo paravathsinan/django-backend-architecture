@@ -5,4 +5,4 @@ Day 1 – Request flow
 Day 2 – Models & ORM
 Day 3 – CRUD & Forms
 DAY 4 - APIs with Django REST Framework
-DAY 5 — Advanced Djang
+DAY 5 — Advanced Django
