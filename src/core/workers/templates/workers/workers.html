@@ -5,10 +5,9 @@
 <h2>Workers</h2>
 
 <p><a class="btn" href="{% url 'crud_worker' %}">Add Worker</a></p>
-<p><a href=" {% url 'crud_worker' %} "></a><button>Edit</button></p>
 
 {% for worker in workers %}
-	<p>{{ worker.name }} - {{ worker.category }}</p>
+	<p>{{ worker.name }} - {{ worker.category }} <a href="{% url 'edit_worker' worker.id %}"><button>Edit</button></a></p>
 
 {% empty %}
 	<p>No workers yet.</p>
