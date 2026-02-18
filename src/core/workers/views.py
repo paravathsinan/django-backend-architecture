@@ -1,4 +1,4 @@
-from django.shortcuts import render ,redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Worker
 from .forms import WorkerForm
 
@@ -22,6 +22,19 @@ def add_worker(request):
         return redirect('/workers/')
     
     return render(request, 'workers/crud_worker.html', {"form":form})
+
+
+def edit_worker(request,id):
+    worker = get_object_or_404(Worker, id=id)
+    form = WorkerForm(request.POST or None, instance=worker)
+    
+    if form.is_valid():
+        form.save()
+        
+        return redirect('/workers/')
+    
+    return render(request, 'workers/crud_worker.html', {'form':form})
+
 
 
 

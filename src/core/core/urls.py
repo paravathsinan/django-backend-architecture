@@ -16,10 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.views.generic import RedirectView
 from workers import views
 
 urlpatterns = [
+    path('', RedirectView.as_view(url='/workers/')),
     path('admin/', admin.site.urls),
     path('workers/',views.worker_list),
     path('workers/add/', views.add_worker, name='crud_worker'),
+    path('workers/edit/<int:id>/', views.edit_worker, name='edit_worker'),
 ]
