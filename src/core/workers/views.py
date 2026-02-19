@@ -36,6 +36,13 @@ def edit_worker(request,id):
     return render(request, 'workers/crud_worker.html', {'form':form})
 
 
+def delete_worker(request, id):
+    worker = get_object_or_404(Worker, id=id)
+    worker.delete()
+    return redirect('/workers/')
+
+
+
 
 
 

@@ -9,6 +9,7 @@
 {% for worker in workers %}
 	<p>{{ worker.name }} - {{ worker.category }} 
 		<a href="{% url 'edit_worker' worker.id %}"><button>Edit</button></a>
+		<a href="{% url 'delete_worker' worker.id %}" onclick="return confirm('Are you sure you want to delete this worker?');"><button>Delete</button></a>
 	</p>
 
 {% empty %}
