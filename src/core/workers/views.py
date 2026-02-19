@@ -1,3 +1,6 @@
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .serializers import WorkerSerializer
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Worker
 from .forms import WorkerForm
@@ -41,6 +44,20 @@ def delete_worker(request, id):
     worker.delete()
     return redirect('/workers/')
 
+
+@api_view(['GET', 'POST'])
+def worker_api(request):
+    if request.method == 'GET':
+        workers = Worker.objects.all()
+        serializer = WorkerSerializer(workers, many=True)
+        return Response(serializer.data)
+    
+    elif request.method == 'POST':
+        serializer = WorkerSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.error, status=400)
 
 
 
