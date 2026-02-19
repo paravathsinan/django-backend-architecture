@@ -18,6 +18,11 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic import RedirectView
 from workers import views
+from rest_framework.routers import DefaultRouter
+from workers.views import WorkerViewSet
+
+router = DefaultRouter()
+router.register('api/workers', WorkerViewSet)
 
 urlpatterns = [
     path('', RedirectView.as_view(url='/workers/')),
@@ -26,5 +31,6 @@ urlpatterns = [
     path('workers/add/', views.add_worker, name='crud_worker'),
     path('workers/edit/<int:id>/', views.edit_worker, name='edit_worker'),
     path('workers/delete/<int:id>/', views.delete_worker, name='delete_worker'),
-    path('api/workers/', views.worker_api),
-]
+   #path('api/workers/', views.worker_api),
+] + router.urls
+

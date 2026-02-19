@@ -1,7 +1,10 @@
+from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import WorkerSerializer
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.csrf import csrf_protect
+from django.utils.decorators import method_decorator
 from .models import Worker
 from .forms import WorkerForm
 
@@ -44,7 +47,7 @@ def delete_worker(request, id):
     worker.delete()
     return redirect('/workers/')
 
-
+'''
 @api_view(['GET', 'POST'])
 def worker_api(request):
     if request.method == 'GET':
@@ -58,8 +61,12 @@ def worker_api(request):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.error, status=400)
+'''
 
-
+@method_decorator(csrf_protect, name='dispatch')
+class WorkerViewSet(ModelViewSet):
+    queryset = Worker.objects.all()
+    serializer_class = WorkerSerializer
 
 
 
